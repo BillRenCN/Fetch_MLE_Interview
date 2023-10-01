@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSTM Prediction App</title>
+</head>
+<body>
+<h1>LSTM Prediction App</h1>
+<p>Change the settings and click "Predict" to see LSTM predictions.</p>
+
+<form method="POST" action="/">
+    <label for="predict_days">Number of Predicted Days:</label>
+    <input type="number" id="predict_days" name="predict_days" value="180" required>
+    <br>
+    <label for="update_model">Update Model:</label>
+    <input type="checkbox" id="update_model" name="update_model">
+    <br><br>
+    <button type="submit">Predict</button>
+</form>
+</body>
+</html>

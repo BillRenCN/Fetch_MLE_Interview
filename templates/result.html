@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSTM Predictions</title>
+</head>
+<body>
+<h1>LSTM Predictions</h1>
+
+<!-- Display the saved plot image -->
+<img src="{{ url_for('static', filename='predictions.png') }}" alt="Predictions Plot">
+
+<!-- Display the monthly_predict dictionary -->
+<h2>Monthly Predictions:</h2>
+<ul>
+    {% for month, value in monthly_predict.items() %}
+    <li>Month {{ month }}: {{ value }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Add any additional content or formatting as needed -->
+
+</body>
+</html>
