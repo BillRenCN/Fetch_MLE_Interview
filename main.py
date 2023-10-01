@@ -131,8 +131,8 @@ class Single_Variable_LSTM:
 
     def predict(self, predict_days, update=False):
         """
-        :param predict_days: 预测未来几天的数据
-        :param update: 是否要一边预测一边使用预测数据更新模型
+        :param predict_days: days to predict
+        :param update: choose to update the model while predicting
         :return:
         """
         def single_predict(X):
@@ -191,7 +191,7 @@ class Single_Variable_LSTM:
 
     def inv_transform_data(self, data):
         return self.scaler.inverse_transform(data)
-def main(update_option=False, prev_days_for_training=180):
+def main(update_option=False, prev_days_for_training=180, call_by_app=False):
     prev_days_for_train = prev_days_for_training  # pred 150 is good
     df = pd.read_csv('data_daily.csv')
     df = df[['Receipt_Count']].values
@@ -217,7 +217,11 @@ def main(update_option=False, prev_days_for_training=180):
     plt.legend()
     plt.title('LSTM Predictions')
     plt.savefig('static/predictions.png')
-    # plt.show()
+
+    if call_by_app:
+        pass
+    else:
+        plt.show()
 
     months = []
     for i in range(12):
@@ -230,10 +234,30 @@ def main(update_option=False, prev_days_for_training=180):
         monthly_predict[i + 1] = int(np.sum(predict[sum(months[:i]):sum(months[:i + 1])]))
     print(monthly_predict)
     torch.save(model.lstm.state_dict(), 'model')
-    plt.show()
+
+    # plt.show()
 
     return monthly_predict
 
 
 if __name__ == '__main__':
-    main()
+    update_option = input("Update Option? Y/N      ")
+    while True:
+        if update_option.lower() == 'y':
+            update_option = True
+            break
+        elif update_option.lower() == 'n':
+            update_option = False
+            break
+        else:
+            print('Input Y or N')
+    prev_days = input("Input a number for Previous days to look ahead(Less than 180)        ")
+    while True:
+        if prev_days.isnumeric():
+            prev_days = int(prev_days)
+            break
+        else:
+            print('Please input a number')
+    monthly = main(update_option, prev_days)
+    for i in range(12):
+        print('Month' + str(i + 1) + " Total is : " + str(monthly[i + 1]))
