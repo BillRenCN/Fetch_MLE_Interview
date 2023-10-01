@@ -69,7 +69,7 @@ class Single_Variable_LSTM:
             self.scaler.fit(train_y.reshape(-1, 1))
         self.train_y = self.transform_data(train_y).astype(np.float32)
 
-        # 将前面的prev_days_for_train天的数据作为输入，并且要记得将self.train_y的数据向后移动prev_days_for_train位
+        # Use the data from the previous prev_days_for_train days as input, and remember to shift the data in self.train_y backward by prev_days_for_train positions.
         self.prev_days_for_train = prev_days_for_train
         self.train_x = self.create_dataset(self.train_y, self.prev_days_for_train)
         self.train_y = self.train_y[self.prev_days_for_train:]
@@ -94,7 +94,7 @@ class Single_Variable_LSTM:
     def train(self):
         """
         Train the model
-        :return: 训练后模型的预测结果
+        :return: predicted result
         """
         outputs = None
         for epoch in range(self.num_epochs):
@@ -114,7 +114,7 @@ class Single_Variable_LSTM:
     def test(self, test_y):
         """
 
-        :param test_y: 一维数组
+        :param test_y: one_dim array
         :return:
         """
         y = np.concatenate((self.init_pred, self.transform_data(test_y)), axis=0)
