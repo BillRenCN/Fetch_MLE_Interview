@@ -199,7 +199,12 @@ def main(update_option=False, prev_days_for_training=180, call_by_app=False):
     model = Single_Variable_LSTM(data, prev_days_for_train)
     y = data[prev_days_for_train:]
 
-    a = model.train()
+    if not update_option:
+        model.lstm.load_state_dict(torch.load('model'))
+        a = np.reshape(y, (len(y), 1))
+    else:
+        a = model.train()
+
     b = model.predict(365, update=update_option)[2]
     result = np.concatenate((a, b), axis=0)
 
