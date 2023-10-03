@@ -1,6 +1,6 @@
 # LSTM model for data prediction
 
-### This project is the fetch interview project
+### This project is the fetch interview project (got rejected in (1/3) round)
 
 ## How to use it
 - install the required library
