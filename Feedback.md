@@ -32,4 +32,10 @@
 ## write requirements.txt with versions
 In Pycharm, simply delete all the requirements. Using the prompt up option to generate
 
+alternatively
+```
+pip install pipreqs
+pipreqs /path/to/project
+```
+
 ## Saving, Loading Model when needed
